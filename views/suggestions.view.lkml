@@ -6,7 +6,7 @@ explore: suggestions {
 view: suggestions {
   derived_table: {
     sql:  SELECT table_name, column_name
-          FROM bqml_training_data.INFORMATION_SCHEMA.COLUMNS
+          FROM @{bqml_training_dataset_name}.INFORMATION_SCHEMA.COLUMNS
     ;;
   }
 

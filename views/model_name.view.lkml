@@ -1,6 +1,6 @@
 view: model_name {
   label: "1. Name Your Model"
-  sql_table_name: looker_pdts.BQML_K_MEANS_MODEL_INFO ;;
+  sql_table_name: @{looker_temp_dataset_name}.BQML_K_MEANS_MODEL_INFO ;;
 
 
   parameter: select_model_name {

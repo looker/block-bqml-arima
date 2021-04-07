@@ -1,7 +1,7 @@
 view: k_means_evaluate {
   label: "5. Evaluation Info"
 
-  sql_table_name: ML.EVALUATE(MODEL looker_pdts.{% parameter model_name.select_model_name %}) ;;
+  sql_table_name: ML.EVALUATE(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}) ;;
 
   dimension: davies_bouldin_index {
     type: number

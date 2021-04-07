@@ -1,7 +1,7 @@
 view: k_means_centroids {
   label: "7. Centroids"
 
-  sql_table_name: ML.CENTROIDS(MODEL looker_pdts.{% parameter model_name.select_model_name %}) ;;
+  sql_table_name: ML.CENTROIDS(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}) ;;
 
   dimension: centroid_id {
     primary_key: yes

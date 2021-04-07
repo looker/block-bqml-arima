@@ -4,7 +4,7 @@ view: k_means_create_model {
 
     create_process: {
 
-      sql_step: CREATE OR REPLACE MODEL looker_pdts.{% parameter model_name.select_model_name %}
+      sql_step: CREATE OR REPLACE MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}
                   OPTIONS(MODEL_TYPE = 'KMEANS'
                   {% if choose_number_of_clusters._parameter_value == 'auto' %}
                   {% else %}
@@ -13,10 +13,10 @@ view: k_means_create_model {
                   , KMEANS_INIT_METHOD = 'KMEANS++'
                   , STANDARDIZE_FEATURES = TRUE)
                   AS (SELECT * EXCEPT(item_id)
-                      FROM looker_pdts.{% parameter model_name.select_model_name %}_training_data)
+                      FROM @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_training_data)
       ;;
 
-        sql_step: CREATE TABLE IF NOT EXISTS looker_pdts.BQML_K_MEANS_MODEL_INFO
+        sql_step: CREATE TABLE IF NOT EXISTS @{looker_temp_dataset_name}.BQML_K_MEANS_MODEL_INFO
                   (model_name STRING,
                   number_of_clusters STRING,
                   item_id STRING,
@@ -24,7 +24,7 @@ view: k_means_create_model {
                   created_at TIMESTAMP)
       ;;
 
-          sql_step: INSERT INTO looker_pdts.BQML_K_MEANS_MODEL_INFO
+          sql_step: INSERT INTO @{looker_temp_dataset_name}.BQML_K_MEANS_MODEL_INFO
                 (model_name,
                 number_of_clusters,
                 item_id,
