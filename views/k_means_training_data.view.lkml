@@ -1,3 +1,5 @@
+include: "/explores/field_suggestions.explore"
+
 view: k_means_training_data {
   label: "2. Select Training Data"
   derived_table: {
@@ -16,16 +18,16 @@ view: k_means_training_data {
     label: "Select Training Data (REQUIRED)"
     description: "Choose a dataset to train your model"
     type: unquoted
-    suggest_explore: suggestions
-    suggest_dimension: suggestions.table_name
+    suggest_explore: field_suggestions
+    suggest_dimension: field_suggestions.table_name
   }
 
   filter: select_item_id {
     label: "Select an ID Field (REQUIRED)"
     description: "Choose the field that identifies the items you want to cluster"
     type: string
-    suggest_explore: suggestions
-    suggest_dimension: suggestions.column_name
+    suggest_explore: field_suggestions
+    suggest_dimension: field_suggestions.column_name
     suggest_persist_for: "0 minutes"
   }
 
@@ -33,8 +35,8 @@ view: k_means_training_data {
     label: "Select Features (REQUIRED)"
     description: "Choose the attribute fields that you want to use to cluster your data"
     type: string
-    suggest_explore: suggestions
-    suggest_dimension: suggestions.column_name
+    suggest_explore: field_suggestions
+    suggest_dimension: field_suggestions.column_name
     suggest_persist_for: "0 minutes"
   }
 }

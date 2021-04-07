@@ -27,7 +27,7 @@ explore: bqml_k_means {
 
   join: k_means_predict {
     type: left_outer
-    sql:  ;;
+    sql_on: TRUE ;;
   relationship: one_to_one
   }
 

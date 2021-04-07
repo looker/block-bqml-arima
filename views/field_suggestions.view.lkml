@@ -1,9 +1,4 @@
-explore: suggestions {
-  hidden: yes
-  persist_for: "0 minutes"
-}
-
-view: suggestions {
+view: field_suggestions {
   derived_table: {
     sql:  SELECT table_name, column_name
           FROM @{bqml_training_dataset_name}.INFORMATION_SCHEMA.COLUMNS

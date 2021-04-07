@@ -1,16 +1,6 @@
 view: model_info {
   sql_table_name: @{looker_temp_dataset_name}.BQML_K_MEANS_MODEL_INFO ;;
 
-  parameter: select_model_name {
-    view_label: "1. Name Your Model"
-    label: "BQML Model Name (REQUIRED)"
-    description: "Enter a unique name to create a new BQML model or select an existing model to use in your analysis"
-    type: unquoted
-    suggest_explore: model_info
-    suggest_dimension: model_info.model_name
-    suggest_persist_for: "0 minutes"
-  }
-
   dimension: model_name {
     suggest_persist_for: "0 minutes"
     primary_key: yes
