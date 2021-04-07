@@ -7,7 +7,4 @@ view: +suggestions {
       WHERE table_name = 'users'
     ;;
   }
-
-  dimension: table_name {}
-  dimension: column_name {}
 }
