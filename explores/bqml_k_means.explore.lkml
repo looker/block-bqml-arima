@@ -1,7 +1,7 @@
 include: "/views/*.view"
 
 explore: bqml_k_means {
-  hidden: yes
+  extension: required
   view_name: model_name
   group_label: "Advanced Analytics with BQML"
   description: "Use this Explore to build and evaluate a BQML K-means Clustering model"
