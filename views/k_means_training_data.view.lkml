@@ -1,7 +1,7 @@
 include: "/explores/field_suggestions.explore"
 
 view: k_means_training_data {
-  label: "[2] Select Training Data"
+  label: "[2] BQML: Select Training Data"
   derived_table: {
     persist_for: "1 second"
     sql_create: CREATE OR REPLACE VIEW @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_training_data
