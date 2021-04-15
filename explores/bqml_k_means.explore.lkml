@@ -38,6 +38,7 @@ explore: bqml_k_means {
   join: nearest_centroids_distance {
     type: left_outer
     sql: LEFT JOIN UNNEST(${k_means_predict.nearest_centroids_distance}) as nearest_centroids_distance ;;
+    relationship: one_to_many
   }
 
   join: k_means_centroids {
