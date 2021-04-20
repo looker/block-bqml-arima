@@ -8,7 +8,7 @@ view: k_means_centroid_feature_category {
           END) AS feature_category
           , COALESCE(k_means_centroids.numerical_value, categorical_value.value) AS value
           FROM ${k_means_centroids.SQL_TABLE_NAME} AS k_means_centroids
-          LEFT JOIN UNNEST(${k_means_centroids.categorical_value}) AS categorical_value
+          LEFT JOIN UNNEST(k_means_centroids.categorical_value) as categorical_value
     ;;
   }
 }
