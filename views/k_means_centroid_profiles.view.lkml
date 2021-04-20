@@ -22,7 +22,7 @@ view: k_means_centroid_profiles {
   }
 
   dimension: items_pct_total {
-    label: "Percent of Total"
+    label: "Percent of Total Items"
     type: number
     sql: ${TABLE}.items_pct_total ;;
     value_format_name: percent_2

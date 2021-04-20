@@ -51,4 +51,10 @@ explore: bqml_k_means {
     sql: LEFT JOIN UNNEST(${k_means_centroids.categorical_value}) as categorical_value ;;
     relationship: one_to_many
   }
+
+  join: k_means_centroid_profiles {
+    type: left_outer
+    sql_on: ${k_means_centroids.centroid_id} = ${k_means_centroid_profiles.centroid_id} ;;
+    relationship: one_to_one
+  }
 }
