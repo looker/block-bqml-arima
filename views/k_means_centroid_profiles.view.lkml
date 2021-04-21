@@ -52,6 +52,7 @@ view: k_means_centroids_indexed_values {
           , k_means_centroid_feature_category.feature_category AS feature_category
           , k_means_centroid_feature_category.value AS value
           , 100 * (value / SUM(value * k_means_centroid_item_count.items_pct_total) OVER (PARTITION BY k_means_centroid_feature_category.feature_category)) AS indexed_value
+          , (value / SUM(value * k_means_centroid_item_count.items_pct_total) OVER (PARTITION BY k_means_centroid_feature_category.feature_category)) - 1 AS pct_diff_from_avg
           FROM ${k_means_centroid_feature_category.SQL_TABLE_NAME} AS k_means_centroid_feature_category
           LEFT JOIN ${k_means_centroid_item_count.SQL_TABLE_NAME} AS k_means_centroid_item_count
             ON k_means_centroid_feature_category.centroid_id = k_means_centroid_item_count.centroid_id
@@ -74,5 +75,11 @@ view: k_means_centroids_indexed_values {
 
   dimension: indexed_value {
     type: number
+  }
+
+  dimension: pct_diff_from_avg {
+    label: "Percent Difference from Average"
+    type: number
+    value_format_name: percent_2
   }
 }
