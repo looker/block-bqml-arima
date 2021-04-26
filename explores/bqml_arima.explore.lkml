@@ -24,10 +24,16 @@ explore: bqml_arima {
     relationship: one_to_one
   }
 
-  # join: k_means_evaluate {
-  #   type: cross
-  #   relationship: one_to_one
-  # }
+  join: arima_evaluate {
+    type: cross
+    relationship: one_to_one
+  }
+
+  join: arima_coefficients {
+    type: cross
+    relationship: one_to_one
+  }
+
 
   # join: k_means_predict {
   #   type: left_outer
