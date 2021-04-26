@@ -13,9 +13,7 @@ view: +input_data {
           FULL OUTER JOIN looker-private-demo.ecomm.inventory_items  AS inventory_items ON inventory_items.id = order_items.inventory_item_id
           LEFT JOIN looker-private-demo.ecomm.products  AS products ON products.id = inventory_items.product_id
           GROUP BY
-              1,
-              2,
-              3
+              1
     ;;
   }
 }
