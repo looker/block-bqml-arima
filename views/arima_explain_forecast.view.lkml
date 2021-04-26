@@ -18,7 +18,7 @@ view: arima_explain_forecast {
     default_value: "0.95"
   }
 
-  dimension_group: time_series_timestamp {
+  dimension_group: time_series {
     type: time
     timeframes: [raw, time, date]
     sql: ${TABLE}.time_series_timestamp ;;
