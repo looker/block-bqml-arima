@@ -28,7 +28,7 @@ view: arima_create_model {
                   (model_name STRING,
                   time_column STRING,
                   data_column STRING,
-                  series_id   ARRAY<STRING>,
+                  series_id   STRING,
                   horizon     INT64,
                   created_at  TIMESTAMP)
       ;;
@@ -37,8 +37,8 @@ view: arima_create_model {
                 USING (SELECT '{% parameter model_name.select_model_name %}' AS model_name
                         , '{% parameter arima_training_data.select_time_column %}' AS time_column
                         , '{% parameter arima_training_data.select_data_column %}' AS data_column
-                        {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: "'" | replace: '"',"'" %}
-                        , [{{ series_id }}] AS series_id
+                        {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: '"' | remove: "'" %}
+                        , '{{ series_id }}' AS series_id
                         , {% parameter set_horizon %} AS horizon
                         , CURRENT_TIMESTAMP AS created_at
                       ) AS S

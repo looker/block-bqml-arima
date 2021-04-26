@@ -1,5 +1,5 @@
 view: arima_explain_forecast {
-  label: "[7] BQML: Forecast"
+  label: "[7] BQML: Explain Forecast"
 
   sql_table_name: ML.EXPLAIN_FORECAST(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model,
                     STRUCT({% parameter set_horizon %} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) ;;
@@ -22,6 +22,7 @@ view: arima_explain_forecast {
     type: time
     timeframes: [raw, time, date]
     sql: ${TABLE}.time_series_timestamp ;;
+    convert_tz: no
   }
 
   dimension: time_series_type {
