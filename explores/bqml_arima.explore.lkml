@@ -1,7 +1,7 @@
 include: "/views/*.view"
 
 explore: bqml_arima {
-  # extension: required
+  extension: required
   group_label: "Advanced Analytics with BQML"
   description: "Use this Explore to build and evaluate a BQML ARIMA Plus model"
 
@@ -9,12 +9,10 @@ explore: bqml_arima {
     filters: [model_name.select_model_name: ""]
   }
 
-  view_name: model_name
-
-  # join: model_name {
-  #   sql:  ;;
-  #   relationship: one_to_one
-  # }
+  join: model_name {
+    sql:  ;;
+    relationship: one_to_one
+  }
 
   join: arima_training_data {
     sql:  ;;
