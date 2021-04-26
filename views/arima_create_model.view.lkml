@@ -39,7 +39,7 @@ view: arima_create_model {
                         , '{% parameter arima_training_data.select_data_column %}' AS data_column
                         {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: "'" | replace: '"',"'" %}
                         , [{{ series_id }}] AS series_id
-                        , '{% parameter horizon %}' AS horizon
+                        , {% parameter horizon %} AS horizon
                         , CURRENT_TIMESTAMP AS created_at
                       ) AS S
                 ON T.model_name = S.model_name
