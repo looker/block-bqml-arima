@@ -28,7 +28,7 @@ view: arima_create_model {
                   (model_name STRING,
                   time_column STRING,
                   data_column STRING,
-                  series_id   STRING,
+                  series_id   ARRAY<STRING>,
                   horizon     INT64,
                   created_at  TIMESTAMP)
       ;;
