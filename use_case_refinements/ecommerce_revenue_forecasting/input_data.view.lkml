@@ -3,8 +3,6 @@ include: "/views/input_data.view"
 view: +input_data {
   derived_table: {
     sql:  SELECT
-          TRIM(products.department)  AS products_department,
-          TRIM(products.category)  AS products_category,
           (CAST(TIMESTAMP(FORMAT_TIMESTAMP('%F %H:%M:%E*S', order_items.created_at , 'America/Los_Angeles')) AS DATE)) AS created_date,
           COALESCE(SUM(order_items.sale_price ), 0) AS total_revenue,
           COALESCE(SUM(( order_items.sale_price - inventory_items.cost  ) ), 0) AS total_gross_margin,

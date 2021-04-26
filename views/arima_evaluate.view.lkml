@@ -5,16 +5,19 @@ view: arima_evaluate {
 
 
   dimension: non_seasonal_p {
+    label: "Non Seasonal p"
     type: number
     sql: ${TABLE}.non_seasonal_p ;;
   }
 
   dimension: non_seasonal_d {
+    label: "Non Seasonal d"
     type: number
     sql: ${TABLE}.non_seasonal_d ;;
   }
 
   dimension: non_seasonal_q {
+    label: "Non Seasonal q"
     type: number
     sql: ${TABLE}.non_seasonal_q ;;
   }
@@ -30,6 +33,7 @@ view: arima_evaluate {
   }
 
   dimension: aic {
+    label: "AIC"
     type: number
     sql: ${TABLE}.AIC ;;
   }

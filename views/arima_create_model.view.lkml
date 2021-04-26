@@ -15,9 +15,9 @@ view: arima_create_model {
                     {% else %}
                     {% endif %}
 
-                    {% if horizon._parameter_value == 1000 %}
+                    {% if set_horizon._parameter_value == 1000 %}
                     {% else %}
-                      , HORIZON = {% parameter horizon %}
+                      , HORIZON = {% parameter set_horizon %}
                     {% endif %}
 
                     , AUTO_ARIMA = TRUE)
@@ -39,7 +39,7 @@ view: arima_create_model {
                         , '{% parameter arima_training_data.select_data_column %}' AS data_column
                         {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: "'" | replace: '"',"'" %}
                         , [{{ series_id }}] AS series_id
-                        , {% parameter horizon %} AS horizon
+                        , {% parameter set_horizon %} AS horizon
                         , CURRENT_TIMESTAMP AS created_at
                       ) AS S
                 ON T.model_name = S.model_name
@@ -56,7 +56,7 @@ view: arima_create_model {
     }
   }
 
-  parameter: horizon {
+  parameter: set_horizon {
     view_label: "[3] BQML: Choose Model Parameters"
     label: "Forecast Horizon (optional)"
     description: "Choose the number of time points to forecast. The default value is 1,000. The maximum value is 10,000"
