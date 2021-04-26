@@ -37,7 +37,7 @@ view: arima_training_data {
   }
 
   filter: select_series_id_column {
-    hidden: no
+    hidden: yes
     label: "Select Time Series IDs (REQUIRED)"
     description: "Choose the field or fields that uniquely identify each time series"
     type: string

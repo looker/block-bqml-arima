@@ -8,19 +8,24 @@ view: model_info {
     sql: ${TABLE}.model_name ;;
   }
 
-  dimension: number_of_clusters {
+  dimension: time_column {
     type: string
-    sql: ${TABLE}.number_of_clusters ;;
+    sql: ${TABLE}.time_column ;;
   }
 
-  dimension: item_id {
+  dimension: data_column {
     type: string
-    sql: ${TABLE}.item_id ;;
+    sql: ${TABLE}.data_column ;;
   }
 
-  dimension: features {
+  dimension: series_id {
     type: string
-    sql: ${TABLE}.features ;;
+    sql: ${TABLE}.series_id ;;
+  }
+
+  dimension: horizon {
+    type: number
+    sql: ${TABLE}.horizon ;;
   }
 
   dimension_group: created_at {

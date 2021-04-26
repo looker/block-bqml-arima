@@ -11,7 +11,7 @@ view: arima_create_model {
 
                     {% if arima_training_data.select_series_id_column._is_filtered %}
                       {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: "'" | replace: '"',"'" %}
-                      , [{{ series_id }}]
+                      , time_series_id_col = [{{ series_id }}]
                     {% else %}
                     {% endif %}
 
@@ -38,7 +38,7 @@ view: arima_create_model {
                         , '{% parameter arima_training_data.select_time_column %}' AS time_column
                         , '{% parameter arima_training_data.select_data_column %}' AS data_column
                         {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: "'" | replace: '"',"'" %}
-                        , '{{ series_id }}' AS series_id
+                        , [{{ series_id }}] AS series_id
                         , '{% parameter horizon %}' AS horizon
                         , CURRENT_TIMESTAMP AS created_at
                       ) AS S
