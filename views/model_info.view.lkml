@@ -1,5 +1,5 @@
 view: model_info {
-  sql_table_name: @{looker_temp_dataset_name}.BQML_K_MEANS_MODEL_INFO ;;
+  sql_table_name: @{looker_temp_dataset_name}.BQML_ARIMA_MODEL_INFO ;;
 
   dimension: model_name {
     suggest_persist_for: "0 minutes"
