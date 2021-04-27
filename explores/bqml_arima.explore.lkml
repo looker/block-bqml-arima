@@ -2,6 +2,7 @@ include: "/views/*.view"
 
 explore: bqml_arima {
   extension: required
+  view_name: input_data
   group_label: "Advanced Analytics with BQML"
   description: "Use this Explore to build and evaluate a BQML ARIMA Plus model"
 
@@ -35,8 +36,9 @@ explore: bqml_arima {
   }
 
   join: arima_explain_forecast {
-    type: cross
-    relationship: many_to_many
+    type: full_outer
+    relationship: one_to_one
+    sql_on: ;;
   }
 
 }

@@ -16,4 +16,41 @@ view: +input_data {
               1
     ;;
   }
+
+  dimension: created_date {
+    primary_key: yes
+    convert_tz: no
+    type: date
+    datatype: date
+    sql: ${TABLE}.created_date ;;
+  }
+
+  dimension: total_revenue {
+    type: number
+    sql: ${TABLE}.total_revenue ;;
+  }
+
+  dimension: total_gross_margin {
+    type: number
+    sql: ${TABLE}.total_gross_margin ;;
+  }
+
+  dimension: returned_count {
+    type: number
+    sql: ${TABLE}.returned_count ;;
+  }
+
+  dimension: order_item_count {
+    type: number
+    sql: ${TABLE}.order_item_count ;;
+  }
+
+  dimension: returned_total_sale_price {
+    type: number
+    sql: ${TABLE}.returned_total_sale_price ;;
+  }
+
+  measure: count {
+    type: count
+  }
 }

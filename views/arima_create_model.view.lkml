@@ -57,7 +57,7 @@ view: arima_create_model {
   }
 
   parameter: set_horizon {
-    view_label: "[3] BQML: Choose Model Parameters"
+    view_label: "[4] BQML: Choose Model Parameters"
     label: "Forecast Horizon (optional)"
     description: "Choose the number of time points to forecast. The default value is 1,000. The maximum value is 10,000"
     type: number
@@ -65,7 +65,7 @@ view: arima_create_model {
   }
 
   dimension: status {
-    view_label: "[4] BQML: Create Model"
+    view_label: "[5] BQML: Create Model"
     label: "Build Status (REQUIRED)"
     description: "Selecting this field is required to start building your model"
     type: string
