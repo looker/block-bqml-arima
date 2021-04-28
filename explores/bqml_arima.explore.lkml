@@ -35,6 +35,16 @@ explore: bqml_arima {
     relationship: many_to_many
   }
 
+  join: ar_coefficients {
+    sql: LEFT JOIN UNNEST(${arima_coefficients.ar_coefficients}) as ar_coefficients ;;
+    relationship: one_to_many
+  }
+
+  join: ma_coefficients {
+    sql: LEFT JOIN UNNEST(${arima_coefficients.ma_coefficients}) as ma_coefficients ;;
+    relationship: one_to_many
+  }
+
   join: arima_explain_forecast {
     type: full_outer
     relationship: one_to_one

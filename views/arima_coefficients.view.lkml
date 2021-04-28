@@ -4,15 +4,11 @@ view: arima_coefficients {
   sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model) ;;
 
   dimension: ar_coefficients {
-    label: "AR Coefficients"
-    type: number
-    sql: ${TABLE}.ar_coefficients ;;
+    hidden: yes
   }
 
   dimension: ma_coefficients {
-    label: "MA Coefficients"
-    type: number
-    sql: ${TABLE}.ma_coefficients ;;
+    hidden: yes
   }
 
   dimension: intercept_or_drift {
@@ -23,5 +19,24 @@ view: arima_coefficients {
   measure: count {
     type: count
   }
+}
 
+view: ar_coefficients {
+  label: "[7] BQML: Model Coefficients"
+
+  dimension: ar_coefficients {
+    label: "AR Coefficients"
+    type: number
+    sql: ${TABLE} ;;
+  }
+}
+
+view: ma_coefficients {
+  label: "[7] BQML: Model Coefficients"
+
+  dimension: ma_coefficients {
+    label: "MA Coefficients"
+    type: number
+    sql: ${TABLE} ;;
+  }
 }
