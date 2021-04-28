@@ -1,4 +1,4 @@
-connection: "advanced_analytics_accelerator"
+connection: "@{database_connection}"
 
 include: "/explores/bqml_arima.explore"
 include: "/use_case_refinements/google_analytics_forecast/*.view"
