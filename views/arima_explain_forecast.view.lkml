@@ -18,9 +18,16 @@ view: arima_explain_forecast {
     default_value: "0.95"
   }
 
+  dimension: pk {
+    primary_key: yes
+    hidden: yes
+    type: date_raw
+    sql: ${TABLE}.time_series_timestamp ;;
+  }
+
   dimension_group: time_series {
     type: time
-    timeframes: [raw, time, date]
+    timeframes: [raw, time, date, week, month, year]
     sql: ${TABLE}.time_series_timestamp ;;
     convert_tz: no
   }
@@ -31,11 +38,13 @@ view: arima_explain_forecast {
   }
 
   dimension: time_series_data {
+    hidden: yes
     type: number
     sql: ${TABLE}.time_series_data ;;
   }
 
   dimension: time_series_adjusted_data {
+    hidden: yes
     type: number
     sql: ${TABLE}.time_series_adjusted_data ;;
   }
@@ -51,16 +60,19 @@ view: arima_explain_forecast {
   }
 
   dimension: prediction_interval_lower_bound {
+    hidden: yes
     type: number
     sql: ${TABLE}.prediction_interval_lower_bound ;;
   }
 
   dimension: prediction_interval_upper_bound {
+    hidden: yes
     type: number
     sql: ${TABLE}.prediction_interval_upper_bound ;;
   }
 
   dimension: trend {
+    hidden: yes
     type: number
     sql: ${TABLE}.trend ;;
   }
@@ -109,4 +121,33 @@ view: arima_explain_forecast {
     type: count
   }
 
+  measure: total_time_series_data {
+    type: sum
+    sql: ${time_series_data} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_time_series_adjusted_data {
+    type: sum
+    sql: ${time_series_adjusted_data} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_prediction_interval_lower_bound {
+    type: number
+    sql: SUM(${prediction_interval_lower_bound}) ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_prediction_interval_upper_bound {
+    type: number
+    sql: SUM(${prediction_interval_upper_bound}) ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_trend {
+    type: sum
+    sql: ${trend} ;;
+    value_format_name: decimal_0
+  }
 }

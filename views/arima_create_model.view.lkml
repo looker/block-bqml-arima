@@ -64,10 +64,10 @@ view: arima_create_model {
     default_value: "1000"
   }
 
-  dimension: status {
+  dimension: train_model {
     view_label: "[5] BQML: Create Model"
-    label: "Build Status (REQUIRED)"
-    description: "Selecting this field is required to start building your model"
+    label: "Train Model (REQUIRED)"
+    description: "Selecting this field is required to start training your model"
     type: string
     sql: 'Complete' ;;
   }
