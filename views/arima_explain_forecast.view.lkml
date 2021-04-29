@@ -78,41 +78,49 @@ view: arima_explain_forecast {
   }
 
   dimension: seasonal_period_yearly {
+    hidden: yes
     type: number
     sql: ${TABLE}.seasonal_period_yearly ;;
   }
 
   dimension: seasonal_period_quarterly {
+    hidden: yes
     type: number
     sql: ${TABLE}.seasonal_period_quarterly ;;
   }
 
   dimension: seasonal_period_monthly {
+    hidden: yes
     type: number
     sql: ${TABLE}.seasonal_period_monthly ;;
   }
 
   dimension: seasonal_period_weekly {
+    hidden: yes
     type: number
     sql: ${TABLE}.seasonal_period_weekly ;;
   }
 
   dimension: seasonal_period_daily {
+    hidden: yes
     type: number
     sql: ${TABLE}.seasonal_period_daily ;;
   }
 
   dimension: holiday_effect {
+    hidden: yes
     type: number
     sql: ${TABLE}.holiday_effect ;;
   }
 
   dimension: spikes_and_dips {
+    hidden: yes
     type: number
     sql: ${TABLE}.spikes_and_dips ;;
   }
 
   dimension: step_changes {
+    hidden: yes
     type: number
     sql: ${TABLE}.step_changes ;;
   }
@@ -148,6 +156,54 @@ view: arima_explain_forecast {
   measure: total_trend {
     type: sum
     sql: ${trend} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_seasonal_period_yearly {
+    type: sum
+    sql: ${seasonal_period_yearly} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_seasonal_period_quarterly {
+    type: sum
+    sql: ${seasonal_period_quarterly} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_seasonal_period_monthly {
+    type: sum
+    sql: ${seasonal_period_monthly} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_seasonal_period_weekly {
+    type: sum
+    sql: ${seasonal_period_weekly} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_seasonal_period_daily {
+    type: sum
+    sql: ${seasonal_period_daily} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_holiday_effect {
+    type: sum
+    sql: ${holiday_effect} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_spikes_and_dips {
+    type: sum
+    sql: ${spikes_and_dips} ;;
+    value_format_name: decimal_0
+  }
+
+  measure: total_step_changes {
+    type: sum
+    sql: ${step_changes} ;;
     value_format_name: decimal_0
   }
 }
