@@ -24,7 +24,6 @@ view: arima_training_data {
     type: unquoted
     suggest_explore: field_suggestions
     suggest_dimension: field_suggestions.column_name
-    suggest_persist_for: "0 minutes"
   }
 
   parameter: select_data_column {
@@ -33,7 +32,6 @@ view: arima_training_data {
     type: unquoted
     suggest_explore: field_suggestions
     suggest_dimension: field_suggestions.column_name
-    suggest_persist_for: "0 minutes"
   }
 
   filter: select_series_id_column {
@@ -43,6 +41,5 @@ view: arima_training_data {
     type: string
     suggest_explore: field_suggestions
     suggest_dimension: field_suggestions.column_name
-    suggest_persist_for: "0 minutes"
   }
 }
