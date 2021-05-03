@@ -1,4 +1,4 @@
-project_name: "bqml_k_means_block"
+project_name: "bqml_arima_block"
 
 constant: database_connection {
   value: "advanced_analytics_accelerator"
