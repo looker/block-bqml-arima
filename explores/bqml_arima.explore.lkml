@@ -46,9 +46,7 @@ explore: bqml_arima {
   }
 
   join: arima_explain_forecast {
-    type: full_outer
-    relationship: one_to_one
-    sql_on: ;;
+    type: cross
+    relationship: many_to_many
   }
-
 }
