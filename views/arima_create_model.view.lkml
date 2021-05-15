@@ -20,17 +20,23 @@ view: arima_create_model {
                       , HORIZON = {% parameter set_horizon %}
                     {% endif %}
 
+                    {% if set_holiday_region._parameter_value == 'none' %}
+                    {% else %}
+                    , HOLIDAY_REGION = '{% parameter set_holiday_region %}'
+                    {% endif %}
+
                     , AUTO_ARIMA = TRUE)
                   AS (SELECT * FROM @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data)
       ;;
 
       sql_step: CREATE TABLE IF NOT EXISTS @{looker_temp_dataset_name}.BQML_ARIMA_MODEL_INFO
-                  (model_name STRING,
-                  time_column STRING,
-                  data_column STRING,
-                  series_id   STRING,
-                  horizon     INT64,
-                  created_at  TIMESTAMP)
+                  (model_name     STRING,
+                  time_column     STRING,
+                  data_column     STRING,
+                  series_id       STRING,
+                  horizon         INT64,
+                  holiday_region  STRING,
+                  created_at      TIMESTAMP)
       ;;
 
       sql_step: MERGE @{looker_temp_dataset_name}.BQML_ARIMA_MODEL_INFO AS T
@@ -40,6 +46,7 @@ view: arima_create_model {
                         {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: '"' | remove: "'" %}
                         , '{{ series_id }}' AS series_id
                         , {% parameter set_horizon %} AS horizon
+                        , '{% parameter set_holiday_region %}' AS holiday_region
                         , CURRENT_TIMESTAMP AS created_at
                       ) AS S
                 ON T.model_name = S.model_name
@@ -48,10 +55,11 @@ view: arima_create_model {
                 , data_column=S.data_column
                 , series_id=S.series_id
                 , horizon=S.horizon
+                , holiday_region=S.holiday_region
                 , created_at=S.created_at
                 WHEN NOT MATCHED THEN
-                INSERT (model_name, time_column, data_column, series_id, horizon, created_at)
-                VALUES(model_name, time_column, data_column, series_id, horizon, created_at)
+                INSERT (model_name, time_column, data_column, series_id, horizon, holiday_region, created_at)
+                VALUES(model_name, time_column, data_column, series_id, horizon, holiday_region, created_at)
       ;;
     }
   }
@@ -63,6 +71,39 @@ view: arima_create_model {
     type: number
     default_value: "1000"
   }
+
+  parameter: set_holiday_region {
+    view_label: "[4] BQML: Set Model Parameters"
+    label: "Holiday Effects Region (optional)"
+    description: "Choose a geographical region if you would like to adjust for holiday effects. By default, holiday effect modeling is disabled."
+    type: unquoted
+    default_value: "none"
+    allowed_value: {
+      label: "No Holiday Adjustment"
+      value: "none"
+    }
+    allowed_value: {
+      label: "Global"
+      value: "GLOBAL"
+    }
+    allowed_value: {
+      label: "North America"
+      value: "NA"
+    }
+    allowed_value: {
+      label: "Japan and Asia Pacific"
+      value: "JAPAC"
+    }
+    allowed_value: {
+      label: "Europe, the Middle East and Africa"
+      value: "EMEA"
+    }
+    allowed_value: {
+      label: "Latin America and the Caribbean"
+      value: "LAC"
+    }
+  }
+
 
   dimension: train_model {
     view_label: "[5] BQML: Create Model"

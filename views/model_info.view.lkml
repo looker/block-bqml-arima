@@ -28,6 +28,11 @@ view: model_info {
     sql: ${TABLE}.horizon ;;
   }
 
+  dimension: holiday_region {
+    type: string
+    sql: ${TABLE}.holiday_region ;;
+  }
+
   dimension_group: created_at {
     type: time
     timeframes: [raw, time]
