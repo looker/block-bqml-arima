@@ -10,9 +10,9 @@ explore: ecommerce_forecast {
 
   extends: [bqml_arima]
 
-  join: arima_explain_forecast {
+  join: arima_forecast {
     type: full_outer
     relationship: one_to_one
-    sql_on: ${input_data.created_date} = ${arima_explain_forecast.time_series_date} ;;
+    sql_on: ${input_data.created_date} = ${arima_forecast.forecast_date} ;;
   }
 }

@@ -1,5 +1,5 @@
 view: arima_explain_forecast {
-  label: "[7] BQML: Forecast"
+  label: "[8] BQML: Explain Forecast"
 
   sql_table_name: ML.EXPLAIN_FORECAST(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model,
                     STRUCT({% parameter set_horizon %} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) ;;
@@ -126,84 +126,85 @@ view: arima_explain_forecast {
   }
 
   measure: count {
+    label: "Row Count"
     type: count
   }
 
   measure: total_time_series_data {
     type: sum
     sql: ${time_series_data} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_time_series_adjusted_data {
     type: sum
     sql: ${time_series_adjusted_data} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_prediction_interval_lower_bound {
     type: number
     sql: SUM(${prediction_interval_lower_bound}) ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_prediction_interval_upper_bound {
     type: number
     sql: SUM(${prediction_interval_upper_bound}) ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_trend {
     type: sum
     sql: ${trend} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_seasonal_period_yearly {
     type: sum
     sql: ${seasonal_period_yearly} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_seasonal_period_quarterly {
     type: sum
     sql: ${seasonal_period_quarterly} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_seasonal_period_monthly {
     type: sum
     sql: ${seasonal_period_monthly} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_seasonal_period_weekly {
     type: sum
     sql: ${seasonal_period_weekly} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_seasonal_period_daily {
     type: sum
     sql: ${seasonal_period_daily} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_holiday_effect {
     type: sum
     sql: ${holiday_effect} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_spikes_and_dips {
     type: sum
     sql: ${spikes_and_dips} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 
   measure: total_step_changes {
     type: sum
     sql: ${step_changes} ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
   }
 }
