@@ -1,5 +1,5 @@
 view: arima_coefficients {
-  label: "[7] BQML: Model Coefficients"
+  label: "[8] BQML: ARIMA Coefficients"
 
   sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model) ;;
 
@@ -22,7 +22,7 @@ view: arima_coefficients {
 }
 
 view: ar_coefficients {
-  label: "[7] BQML: Model Coefficients"
+  label: "[8] BQML: ARIMA Coefficients"
 
   dimension: ar_coefficients {
     label: "AR Coefficients"
@@ -32,7 +32,7 @@ view: ar_coefficients {
 }
 
 view: ma_coefficients {
-  label: "[7] BQML: Model Coefficients"
+  label: "[8] BQML: ARIMA Coefficients"
 
   dimension: ma_coefficients {
     label: "MA Coefficients"
