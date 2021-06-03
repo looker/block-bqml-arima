@@ -9,12 +9,6 @@ view: arima_create_model {
                     , time_series_timestamp_col = '{% parameter arima_training_data.select_time_column %}'
                     , time_series_data_col = '{% parameter arima_training_data.select_data_column %}'
 
-                    {% if arima_training_data.select_series_id_column._is_filtered %}
-                      {% assign series_id = _filters['arima_training_data.select_series_id_column'] | sql_quote | remove: "'" | replace: '"',"'" %}
-                      , time_series_id_col = [{{ series_id }}]
-                    {% else %}
-                    {% endif %}
-
                     {% if set_horizon._parameter_value == 1000 %}
                     {% else %}
                       , HORIZON = {% parameter set_horizon %}
@@ -35,7 +29,8 @@ view: arima_create_model {
                   data_column     STRING,
                   horizon         INT64,
                   holiday_region  STRING,
-                  created_at      TIMESTAMP)
+                  created_at      TIMESTAMP,
+                  explore         STRING)
       ;;
 
       sql_step: MERGE @{looker_temp_dataset_name}.BQML_ARIMA_MODEL_INFO AS T
@@ -45,18 +40,19 @@ view: arima_create_model {
                         , {% parameter set_horizon %} AS horizon
                         , '{% parameter set_holiday_region %}' AS holiday_region
                         , CURRENT_TIMESTAMP AS created_at
+                        , '{{ _explore._name }}' AS explore
                       ) AS S
                 ON T.model_name = S.model_name
                 WHEN MATCHED THEN
-                UPDATE SET time_column=S.time_column
-                , data_column=S.data_column
-                , series_id=S.series_id
-                , horizon=S.horizon
-                , holiday_region=S.holiday_region
-                , created_at=S.created_at
+                  UPDATE SET time_column=S.time_column
+                  , data_column=S.data_column
+                  , horizon=S.horizon
+                  , holiday_region=S.holiday_region
+                  , created_at=S.created_at
+                  , explore=S.explore
                 WHEN NOT MATCHED THEN
-                INSERT (model_name, time_column, data_column, series_id, horizon, holiday_region, created_at)
-                VALUES(model_name, time_column, data_column, series_id, horizon, holiday_region, created_at)
+                  INSERT (model_name, time_column, data_column, horizon, holiday_region, created_at, explore)
+                  VALUES(model_name, time_column, data_column, horizon, holiday_region, created_at, explore)
       ;;
     }
   }

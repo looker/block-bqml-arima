@@ -18,11 +18,6 @@ view: model_info {
     sql: ${TABLE}.data_column ;;
   }
 
-  dimension: series_id {
-    type: string
-    sql: ${TABLE}.series_id ;;
-  }
-
   dimension: horizon {
     type: number
     sql: ${TABLE}.horizon ;;
@@ -37,6 +32,11 @@ view: model_info {
     type: time
     timeframes: [raw, time]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: explore {
+    type: string
+    sql: ${TABLE}.explore ;;
   }
 
   measure: count {

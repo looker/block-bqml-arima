@@ -1,7 +1,7 @@
 connection: "@{database_connection}"
 
 include: "/explores/bqml_arima.explore"
-include: "/use_case_refinements/google_analytics_forecast/*.view"
+include: "/use_case_refinements/google_analytics_forecast/*"
 
 
 explore: google_analytics_forecast {
