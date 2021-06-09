@@ -4,7 +4,7 @@ view: arima_training_data {
   label: "[3] BQML: Select Training Data"
   derived_table: {
     persist_for: "1 second"
-    sql_create: CREATE OR REPLACE VIEW @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data
+    sql_create: CREATE OR REPLACE VIEW @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data_{{ _explore._name }}
                   AS  SELECT {% parameter select_time_column %}
                         , {% parameter select_data_column %}
                       FROM ${input_data.SQL_TABLE_NAME}
