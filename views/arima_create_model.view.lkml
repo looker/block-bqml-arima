@@ -4,7 +4,7 @@ view: arima_create_model {
 
     create_process: {
 
-      sql_step: CREATE OR REPLACE MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model
+      sql_step: CREATE OR REPLACE MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}
                   OPTIONS(MODEL_TYPE = 'ARIMA_PLUS'
                     , time_series_timestamp_col = '{% parameter arima_training_data.select_time_column %}'
                     , time_series_data_col = '{% parameter arima_training_data.select_data_column %}'

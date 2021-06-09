@@ -1,7 +1,7 @@
 view: arima_coefficients {
   label: "[9] BQML: ARIMA Coefficients"
 
-  sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model) ;;
+  sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}) ;;
 
   dimension: ar_coefficients {
     hidden: yes

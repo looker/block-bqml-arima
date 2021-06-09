@@ -1,7 +1,7 @@
 view: arima_evaluate {
   label: "[6] BQML: Evaluation Metrics"
 
-  sql_table_name: ML.ARIMA_EVALUATE(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model) ;;
+  sql_table_name: ML.ARIMA_EVALUATE(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}) ;;
 
 
   dimension: non_seasonal_p {
