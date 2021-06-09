@@ -12,17 +12,17 @@ explore: bqml_arima {
 
   join: input_data {
     type: cross
-    relationship: many_to_many
+    relationship: one_to_many
   }
 
   join: arima_training_data {
     sql:  ;;
-    relationship: one_to_one
+    relationship: many_to_one
   }
 
   join: arima_create_model {
     sql:  ;;
-    relationship: one_to_one
+    relationship: many_to_one
   }
 
   join: arima_evaluate {
