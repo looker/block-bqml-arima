@@ -57,7 +57,6 @@ view: arima_create_model {
                   , horizon=S.horizon
                   , holiday_region=S.holiday_region
                   , created_at=S.created_at
-                  , explore=S.explore
                 WHEN NOT MATCHED THEN
                   INSERT (model_name, time_column, data_column, horizon, holiday_region, created_at, explore)
                   VALUES(model_name, time_column, data_column, horizon, holiday_region, created_at, explore)
