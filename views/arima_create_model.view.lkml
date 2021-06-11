@@ -42,7 +42,7 @@ view: arima_create_model {
                         , CURRENT_TIMESTAMP AS created_at
                         , '{{ _explore._name }}' AS explore
                       ) AS S
-                ON T.model_name = S.model_name
+                ON T.model_name = S.model_name AND T.explore = S.explore
                 WHEN MATCHED THEN
                   UPDATE SET time_column=S.time_column
                   , data_column=S.data_column
