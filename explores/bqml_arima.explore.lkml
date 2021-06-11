@@ -20,6 +20,11 @@ explore: bqml_arima {
     relationship: many_to_one
   }
 
+  join: arima_hyper_params {
+    sql:  ;;
+    relationship: many_to_one
+  }
+
   join: arima_create_model {
     sql:  ;;
     relationship: many_to_one

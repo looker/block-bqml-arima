@@ -1,22 +1,30 @@
 view: arima_create_model {
+  label: "[5] BQML: Create Model"
+
   derived_table: {
     persist_for: "1 second"
 
     create_process: {
+
+      sql_step: CREATE OR REPLACE VIEW @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data_{{ _explore._name }}
+                    AS  SELECT {% parameter arima_training_data.select_time_column %}
+                          , {% parameter arima_training_data.select_data_column %}
+                        FROM ${input_data.SQL_TABLE_NAME}
+      ;;
 
       sql_step: CREATE OR REPLACE MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}
                   OPTIONS(MODEL_TYPE = 'ARIMA_PLUS'
                     , time_series_timestamp_col = '{% parameter arima_training_data.select_time_column %}'
                     , time_series_data_col = '{% parameter arima_training_data.select_data_column %}'
 
-                    {% if set_horizon._parameter_value == 1000 %}
+                    {% if arima_hyper_params.set_horizon._parameter_value == 1000 %}
                     {% else %}
-                      , HORIZON = {% parameter set_horizon %}
+                      , HORIZON = {% parameter arima_hyper_params.set_horizon %}
                     {% endif %}
 
-                    {% if set_holiday_region._parameter_value == 'none' %}
+                    {% if arima_hyper_params.set_holiday_region._parameter_value == 'none' %}
                     {% else %}
-                    , HOLIDAY_REGION = '{% parameter set_holiday_region %}'
+                    , HOLIDAY_REGION = '{% parameter arima_hyper_params.set_holiday_region %}'
                     {% endif %}
 
                     , AUTO_ARIMA = TRUE)
@@ -37,8 +45,8 @@ view: arima_create_model {
                 USING (SELECT '{% parameter model_name.select_model_name %}' AS model_name
                         , '{% parameter arima_training_data.select_time_column %}' AS time_column
                         , '{% parameter arima_training_data.select_data_column %}' AS data_column
-                        , {% parameter set_horizon %} AS horizon
-                        , '{% parameter set_holiday_region %}' AS holiday_region
+                        , {% parameter arima_hyper_params.set_horizon %} AS horizon
+                        , '{% parameter arima_hyper_params.set_holiday_region %}' AS holiday_region
                         , CURRENT_TIMESTAMP AS created_at
                         , '{{ _explore._name }}' AS explore
                       ) AS S
@@ -57,49 +65,7 @@ view: arima_create_model {
     }
   }
 
-  parameter: set_horizon {
-    view_label: "[4] BQML: Set Model Parameters"
-    label: "Forecast Horizon (optional)"
-    description: "Choose the number of time points to forecast. The default value is 1,000. The maximum value is 10,000"
-    type: number
-    default_value: "1000"
-  }
-
-  parameter: set_holiday_region {
-    view_label: "[4] BQML: Set Model Parameters"
-    label: "Holiday Effects Region (optional)"
-    description: "Choose a geographical region if you would like to adjust for holiday effects. By default, holiday effect modeling is disabled."
-    type: unquoted
-    default_value: "none"
-    allowed_value: {
-      label: "No Holiday Adjustment"
-      value: "none"
-    }
-    allowed_value: {
-      label: "Global"
-      value: "GLOBAL"
-    }
-    allowed_value: {
-      label: "North America"
-      value: "NA"
-    }
-    allowed_value: {
-      label: "Japan and Asia Pacific"
-      value: "JAPAC"
-    }
-    allowed_value: {
-      label: "Europe, the Middle East and Africa"
-      value: "EMEA"
-    }
-    allowed_value: {
-      label: "Latin America and the Caribbean"
-      value: "LAC"
-    }
-  }
-
-
   dimension: train_model {
-    view_label: "[5] BQML: Create Model"
     label: "Train Model (REQUIRED)"
     description: "Selecting this field is required to start training your model"
     type: string
