@@ -1,7 +1,9 @@
 view: arima_evaluate {
   label: "[6] BQML: Evaluation Metrics"
 
-  sql_table_name: ML.ARIMA_EVALUATE(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}) ;;
+  sql_table_name: ML.ARIMA_EVALUATE(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}
+                    , STRUCT(FALSE AS show_all_candidate_models))
+  ;;
 
 
   dimension: non_seasonal_p {
@@ -36,16 +38,18 @@ view: arima_evaluate {
     label: "AIC"
     type: number
     sql: ${TABLE}.AIC ;;
+    value_format_name: decimal_4
   }
 
   dimension: variance {
     type: number
     sql: ${TABLE}.variance ;;
+    value_format_name: decimal_4
   }
 
   dimension: seasonal_periods {
     type: string
-    sql: ${TABLE}.seasonal_periods ;;
+    sql: ARRAY_TO_STRING(${TABLE}.seasonal_periods, ", ") ;;
   }
 
   dimension: has_holiday_effect {
