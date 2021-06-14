@@ -25,7 +25,7 @@ explore: google_analytics_forecast {
 
   query: evaluate_model {
     label: "Evaluate Model"
-    description: "Important: Specify model name from Create Model step"
+    description: "Important: Specify model name from Create Model"
     dimensions: [
       arima_evaluate.aic,
       arima_evaluate.has_drift,
@@ -40,7 +40,7 @@ explore: google_analytics_forecast {
 
   query: get_forecast {
     label: "Get Forecast"
-    description: "Important: Specify model name from Create Model step"
+    description: "Important: Specify model name from Create Model"
     dimensions: [arima_forecast.forecast_date]
     measures: [arima_forecast.total_forecast]
     filters: [model_name.select_model_name: ""]
