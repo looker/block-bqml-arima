@@ -41,7 +41,7 @@ This Block requires a BigQuery database connection with the following:
 2. Create an IDE folder to save refinements for each new use case
 3. Create refinements of the following LookML files in the use case's IDE folder:
   -  (REQUIRED) `input_data.view` - Include the sql definition for the input dataset. The dataset should include at least one date or timestamp column and one or more numerical fields containing time-series to be forecast.
-  -  (RECOMMENDED) `model_name_suggestions.explore` - Add a *sql_always_where* clause to specify the `${model_info.explore} = *explore_name*`. This will prevent suggestions of ML models names created with other Explores.
+  -  (RECOMMENDED) `model_name_suggestions.explore` - Add a *sql_always_where* clause to specify the `${model_info.explore} = explore_name`. This will prevent suggestions of ML models names created with other Explores.
   -  (OPTIONAL) `arima_training_data.view` - Specify allowed parameter values for "Select a Time Field" (e.g. created_date) and optionally hide the parameter. The "Select a Time Field" parameter requires the end user to select a field that uniquely identifies each point of the time series to be forecast.
 4. Create a new LookML model for each use case
 5. Add include statements to include `bqml_arima.explore` file and all refinement files in your use case IDE folder
