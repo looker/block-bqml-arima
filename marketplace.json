@@ -25,7 +25,7 @@
       "connection_constant": "CONNECTION_NAME"
     },
      {
-      "name": "nyc_taxi_predictions",
+      "name": "google_analytics_forecast",
       "connection_constant": "CONNECTION_NAME"
     }
   ]
