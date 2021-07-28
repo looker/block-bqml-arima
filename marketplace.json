@@ -21,7 +21,7 @@
       "connection_constant": "CONNECTION_NAME"
     },
     {
-      "name": "census_income_predictions",
+      "name": "ecommerce_forecast",
       "connection_constant": "CONNECTION_NAME"
     },
      {
