@@ -17,7 +17,7 @@
   },
   "models": [
     {
-      "name": "automl_tables",
+      "name": "bqml_arima",
       "connection_constant": "CONNECTION_NAME"
     },
     {
