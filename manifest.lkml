@@ -1,9 +1,11 @@
-project_name: "bqml_arima_block"
+project_name: "block-bqml-arima"
 
 constant: CONNECTION_NAME {
-  value: "advanced_analytics_accelerator"
+  value: "bigquery_publicdata_standard_sql"
+  export: override_required
 }
 
 constant: looker_temp_dataset_name {
-  value: "looker_pdts"
+  value: "looker_scratch_3"
+  export: override_required
 }

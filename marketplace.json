@@ -17,14 +17,10 @@
   },
   "models": [
     {
-      "name": "bqml_arima",
+      "name": "arima_model_info",
       "connection_constant": "CONNECTION_NAME"
     },
     {
-      "name": "ecommerce_forecast",
-      "connection_constant": "CONNECTION_NAME"
-    },
-     {
       "name": "google_analytics_forecast",
       "connection_constant": "CONNECTION_NAME"
     }
