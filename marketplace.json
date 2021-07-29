@@ -18,23 +18,13 @@
   },
   "models": [
     {
-<<<<<<< HEAD
       "name": "bqml_arima",
-=======
-      "name": "arima_model_info",
->>>>>>> branch 'master' of git@github.com:looker/block-bqml-arima.git
       "connection_constant": "CONNECTION_NAME"
     },
     {
-<<<<<<< HEAD
       "name": "ecommerce_forecast",
       "connection_constant": "CONNECTION_NAME"
     },
-     {
-=======
->>>>>>> branch 'master' of git@github.com:looker/block-bqml-arima.git
-      "name": "google_analytics_forecast",
-      "connection_constant": "CONNECTION_NAME"
     }
   ]
 }
