@@ -24,6 +24,6 @@
     {
       "name": "ecommerce_forecast",
       "connection_constant": "CONNECTION_NAME"
-    },
+    }
   ]
 }
