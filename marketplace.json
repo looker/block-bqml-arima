@@ -22,7 +22,7 @@
       "connection_constant": "CONNECTION_NAME"
     },
     {
-      "name": "ecommerce_forecast",
+      "name": "google_analytics_forecast",
       "connection_constant": "CONNECTION_NAME"
     }
   ]
