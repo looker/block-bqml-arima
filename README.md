@@ -3,13 +3,14 @@
 
 ## About this LookML Block
 
-An autoregressive integrated moving average (ARIMA) model can be used to predict (forecast) future points in a time-series while
-automatically detecting and correcting for anomalies, seasonality, and holiday effects. It is a popular tool for data scientists
-to estimate future demand, for example when creating retail sales or manufacturing production forecasts. Using this Block, Looker
-developers can add this advanced analytical capability right into new or existing Explores, no data scientists required.
+An autoregressive integrated moving average (ARIMA) model can be used to predict (forecast) future points in a
+time-series while automatically detecting and correcting for anomalies, seasonality, and holiday effects. It is
+a popular tool for data scientists to estimate future demand, for example when creating retail sales or
+manufacturing production forecasts. Using this Block, Looker developers can add this advanced analytical
+capability right into new or existing Explores, no data scientists required.
 
-Using this Block, you can integrate Looker with BigQuery ML Time-series (ARIMA Plus) models to get the benefit of forecasting with
-advanced analytics without needing to be an expert in data science.
+Using this Block, you can integrate Looker with BigQuery ML Time-series (ARIMA Plus) models to get the benefit
+of forecasting with advanced analytics without needing to be an expert in data science.
 
 BigQuery ML ARIMA Plus model includes the following functionality:
 - Infer the data frequency of the time series
@@ -21,9 +22,9 @@ BigQuery ML ARIMA Plus model includes the following functionality:
 - Detect and adjust holiday effects
 - Detect and adjust for seasonal patterns
 
-This Block gives business users the ability to do time-series forecasting from a new or exiting Explore. Explores created with
-this Block can be used to train multiple time-series models,  evaluate them, and access their forecasts in dashboards or custom
-analyses.
+This Block gives business users the ability to do time-series forecasting from a new or exiting Explore.
+Explores created with this Block can be used to train multiple time-series models,  evaluate them, and access
+their forecasts in dashboards or custom analyses.
 
 
 ## Block Requirements
