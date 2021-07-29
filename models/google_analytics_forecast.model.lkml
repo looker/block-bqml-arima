@@ -1,4 +1,4 @@
-connection: "@{database_connection}"
+connection: "@{CONNECTION_NAME}"
 
 include: "/explores/bqml_arima.explore"
 include: "/use_case_refinements/google_analytics_forecast/*"
