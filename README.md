@@ -39,7 +39,7 @@ During installation you will be asked for the connection and dataset name. These
 > <font size = "3"><font color="red"><b>Note:  BigQuery ML processes and stages data in the same location.</b></font></font><br> See [BigQuery ML Locations](https://cloud.google.com/bigquery-ml/docs/locations) for more details. The example Explore included in this Block is based on BigQuery public dataset stored in the `US` multi-region location. Therefore, to use the Block’s example Explore you should name a dataset also located in the `US` multi-region. To use this Block with data stored in region or multi-region outside of the `US`, name a ARIMA model dataset located in the same region or multi-region and use refinements to hide the example Explore as it will not work in regions outside of the `US`.
 
 
-> <font size = "3"><font color="red"><b>Note:  This Block is intended to be used with only one data connection and one dataset for model processing.</b></font></font><br>If you would like to use Block with multiple data connections, customization of the Block is required. Reach out to Looker Professional Services for more information and guidance.
+> <font size = "3"><font color="red"><b>Note:  This Block is intended to be used with only one data connection and one dataset for model processing.</b></font></font><br>If you would like to use Block with multiple data connections, customization of the Block is required. Reach out to your Looker FSR for more information and guidance from Looker Professional Services.
 
 
 
@@ -58,6 +58,8 @@ Upon successful completion of the installation, a green Check Mark and bar will 
 | project | marketplace_bqml-arima |
 | explore | BQML ARIMA Plus: Google Analytics Forecast | found in Explore menu under Looker + BigQuery ML |
 | explore | BQML ARIMA Plus: Model Info  | found in Explore menu under Looker + BigQuery ML; captures details for each ARIMA model created with the Block |
+
+> <font size = "3"><font color="red"><b>Note:  The marketplace_bqml-arima project is installed as a bare GIT repository.</b></font></font><br>For version control utilizing a remote repository, you will need to [update the connection settings for your Git repository](https://docs.looker.com/data-modeling/getting-started/setting-up-git-connection).
 
 At this point you can begin creating your own Explores incorporating the ARIMA model workflow (see next section for details on building your own Explores) or navigate to the included explore example and create an ARIMA model.
 
