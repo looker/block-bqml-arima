@@ -21,8 +21,8 @@ This Block integrates the **BigQuery ML ARIMA PLUS model** including the followi
 With Looker + BQML, the forecasts and analysis are directly in the hands of business analysts.
 
 ---
-<font size = "3"><font color="blue"> <i class='fa fa-info-circle'></i> Reach out to your Looker account team if you would like to partner with Looker Professional Services to implement this Looker + BQML block
-</font></font>
+<font size = "3" color="rgb(219,68,55)"> <i class='fa fa-info-circle'></i> :information_source: Reach out to your Looker account team if you would like to partner with Looker Professional Services to implement this Looker + BQML block
+</font>
 ---
 
 ## Block Requirements
