@@ -109,7 +109,7 @@ Add a new model file for the use case, update the connection, and add include st
 | Select Create Model | |
 | In the Create File pop-up, enter a `Name` for the use case folder  | monthly_sales_arima |
 | Click `CREATE` |
-| Within newly created model file, set `connection:` parameter to constant `@CONNECTION_NAME` (value for the constant set during installation of this Block) | connection: @CONNECTION_NAME |
+| Within newly created model file, set `connection:` parameter to value used during installation of this Block | connection: thelook_bq |
 | Add an include statement for all view files found in same directory (note, you may receive a warning files cannot be found but you can ignore as files will be added in following steps)| include: '*.view' |
 | Add an include statement for all Explore files found in same directory (note, you may receive a warning files cannot be found but you can ignore as files will be added in following steps) | include: '*.explore' |
 | Add an include statement for the Block's `bqml-arima.explore` so the file is available to this use case model and can be extended into the new Explore created in the next step.| include: "//bqml-arima/**/bqml_arima.explore" |
