@@ -27,7 +27,7 @@ With Looker + BQML, the forecasts and analysis are directly in the hands of busi
 
 ## Block Requirements
 ### 1. An existing [BigQuery database connection](https://docs.looker.com/setup-and-management/database-config/google-bigquery#overview):
-- using **Service Account** with the `BigQuery Data Editor` and `BigQuery Job User` predefined roles. Note a connection using BigQuery OAuth cannot be used as Persistant Derived Tables are not allowed.
+- using **Service Account** with the `BigQuery Data Editor` and `BigQuery Job User` predefined roles. Note a connection using BigQuery OAuth cannot be used as Persistent Derived Tables are not allowed.
 
 - with **Persistent Derived Tables** (PDTs) enabled
 
@@ -53,7 +53,7 @@ During installation you will be asked for the connection and dataset name. These
 3. Review **required Looker permissions** and click `Accept`<br>_note these permissions allow Marketplace to install the Block and are not related to user or developer permissions on your instance_
 4. Specify **configuration details**
     - Select **Connection Name** from dropdown. This value will be saved to the Block's manifest file for the constant named `CONNECTION_NAME` and referenced throughout the Block.
-    - Enter **name of dataset for storing Model details and related tables**. This value can be same dataset used for Looker PDTs as defined in the selected connection. This value will be saved to the Block's manifest file for the constant name `looker_temp_dataset_name` and referenced throughout the Block.
+    - Enter **name of dataset for storing Model details and related tables**. This value can be the same dataset used for Looker PDTs as defined in the selected connection. This value will be saved to the Block's manifest file for the constant name `looker_temp_dataset_name` and referenced throughout the Block.
 
 Upon successful completion of the installation, a green Check Mark and bar will appear. These new objects are installed:
 
@@ -72,14 +72,14 @@ At this point you can begin creating your own Explores incorporating the ARIMA m
 
 ## Building an Explore with the ARIMA Block
 
-The installed Block provides a workflow template as part of an Explore to guide a business user through the steps necessary to create and evaluate an ARIMA model. As seen in the provided Explore `BQML ARIMA Plus: Google Analytics Forecast`, a user navigates through series of steps to create and evaluate daily predictions of Google Analytics metrics like visits, transactions, etc. A few examples of the workflow steps are:
+The installed Block provides a workflow template as part of an Explore to guide a business user through the steps necessary to create and evaluate an ARIMA model. As seen in the provided Explore `BQML ARIMA Plus: Google Analytics Forecast`, a user navigates through a series of steps to create and evaluate daily predictions of Google Analytics metrics like visits, transactions, etc. A few examples of the workflow steps are:
 > <b>[1] BQML: Input Data<br>
 > [2] BQML: Name Your Model<br>
 > [3] BQML: Select Training Data<br>
 > [8] BQML: Explain Forecast<br>
 > [9] BQML: ARIMA Coefficients</b>
 
-For each use case, a LookML developer will create an Explore incorporating the workflow template but changing the Input Data to match a specific use case. For example, your use case may be a forecast of monthly sales. You would add a new model and explore to the `marketplace_bqml-arima project` extending the ARIMA explore with the workflow already defined and modifying the input data to capture monthly sales for the desired time series forecast.
+For each use case, a LookML developer will create an Explore incorporating the workflow template by changing the Input Data to match a specific use case. For example, your use case may be a forecast of monthly sales. You would add a new model and explore the `marketplace_bqml-arima project` extending the ARIMA explore with the workflow already defined and modifying the input data to capture monthly sales for the desired time series forecast.
 
 At a high-level the steps for each use case are:
 ><b>1)  Create Folder for all Use Case files<br>
@@ -143,14 +143,14 @@ An ARIMA PLUS model uses past values in a time series to predict (forecast) futu
 | Navigate to SQL Runner by clicking on the `Develop` Menu and selecting `SQL Runner` | |
 | In left pane, change `Connection` to match the connection defined during installation of this Block (see project's manifest file and value for `@CONNECTION_NAME`)  | @CONNECTION_NAME = thelook_bq |
 | Write and test your SQL query to produce the desired dataset. At minimum, the query must return a time series field and one measure. The provided example creates a simple dataset with create_month and total sales. | SELECT<br>date_trunc(created_at,MONTH) as create_month<br>,sum(order_amount) as order_amount<br>FROM `ecommerce.order_facts` <br>where created_at is not null<br>group by 1|
-| Once the results are as expected, click the `gear` menu (next to Run button) and select `Get Derived Table LookML`. | |
+| Once the results are as expected, click the `gear` menu (next to the Run button) and select `Get Derived Table LookML`. | |
 | Copy the generated LookML (all lines) | |
 | Navigate back to `input_data.view` in your Use Case Folder | |
 | Delete all the notes in the file which were auto-generated when you created the file | |
 | Paste the contents from SQL Runner into the file | |
 | On line 1 of the file insert include statement for the Block view to be refined | include: "//bqml-arima/**/input_data.view" |
 | Replace `view: sql_runner_query` with `view: +input_data` <br> <br>The plus sign (+) indicates we are modifying/refining the original input_data view defined for the Block | view: +input_data |
-| Review the remaining LookML and edit as necessary with:<br>a. names, labels, group labels, descriptions<br>b. identify primary key field<br>c. Modify date formats as necessary. For example, dates are automatically defined as a `dimension_group with type of time` so modify as necessary for timeframes or convert to a single date dimension.<d> Add any additional measures if needed (only count created by default) | dimension: create_month {<br>  type: date<br>  primary_key: yes<br>  sql: <br>${TABLE}.create_month ;;<br>} |
+| Review the remaining LookML and edit as necessary with:<br>a. names, labels, group labels, descriptions<br>b. identify the primary key field<br>c. Modify date formats as necessary. For example, dates are automatically defined as a `dimension_group with type of time` so modify as necessary for timeframes or convert to a single date dimension.<d> Add any additional measures if needed (only count created by default) | dimension: create_month {<br>  type: date<br>  primary_key: yes<br>  sql: <br>${TABLE}.create_month ;;<br>} |
 | Click `SAVE` | |
 
 ---
@@ -172,7 +172,7 @@ The name suggestions come from the `model_name_suggestions.explore` and in this 
 | In the Create File pop-up, enter `model_name_suggestions.explore` <br><br>While this file name does not have to match the original filename, we recommend you keep it the same. Be sure to include the `.explore` extension so you can quickly identify the type from the File Browser. | model_name_suggestions.explore |
 | Click `CREATE` |
 | On line 1 of the blank file, insert include statement for the Block explore to be refined | include: "//bqml-arima/**/model_name_suggestions.explore" |
-| On next lines, enter<br> a. the explore name using the + refinement syntax<br> b. update sql_always_where syntax with use case explore name (as shown in <font color = 'orange'>orange</font> in the example) | explore: +model_name_suggestions {<br>  sql_always_where: ${model_info.explore} =<font color='orange'><b>'monthly_sales_arima'</b></font>;;<br>} |
+| On the next lines, enter<br> a. the explore name using the + refinement syntax<br> b. update sql_always_where syntax with use case explore name (as shown in <font color = 'orange'>orange</font> in the example) | explore: +model_name_suggestions {<br>  sql_always_where: ${model_info.explore} =<font color='orange'><b>'monthly_sales_arima'</b></font>;;<br>} |
 
 
 #### <font size=5>4c. arima_training_data.view </font><font color='red'> (OPTIONAL)
@@ -190,7 +190,7 @@ While the parameter suggestions work as is and do not require any modification, 
 | On line 1 of the file insert include statement for the Block view to be refined | include: "//bqml-arima/**/arima_training_data.view" |
 | Replace `view: arima_training_data` with `view: +arima_training_data` <br> <br>The plus sign (+) indicates we are modifying/refining the original arima_training_data view defined for the Block | view: +arima_training_data |
 | If you want to specify the list of time series fields:<br>a. delete the auto-generated comments added when view file was created<br>b.update parameter: select_time_field with allowed_values for each time series field<br> <br><font color='red'><i class='fa fa-exclamation-triangle'></i> note: Using an allowed list could led to errors if user selects value not included in the Input Data view</font>| parameter: select_time_column {<br>    <font color='orange'><b>allowed_value: {label: "Date" value: "create_date"}<br>    allowed_value: {label: "Month" value: "create_month"}</b></font><br>} |
-| If you want to set default and hide parameter:<br>a. delete the auto-generated comments added when view file was created<br>b.update parameter: select_time_field with default value equal to primary key of the `input_data` view and set hidden to yes<br> <br><font color='red'><i class='fa fa-exclamation-triangle'></i> note: Using a default means the `input_data` view defined for the use case Explore must contain a field matching the default value otherwise an error may occur.</font> | parameter: select_time_column {<br>    <font color = 'orange'><b>default_value: "create_month"<br>    hidden: yes<br></b></font> } |
+| If you want to set the default and hide the parameter:<br>a. delete the auto-generated comments added when view file was created<br>b.update parameter: select_time_field with default value equal to primary key of the `input_data` view and set hidden to yes<br> <br><font color='red'><i class='fa fa-exclamation-triangle'></i> note: Using a default means the `input_data` view defined for the use case Explore must contain a field matching the default value otherwise an error may occur.</font> | parameter: select_time_column {<br>    <font color = 'orange'><b>default_value: "create_month"<br>    hidden: yes<br></b></font> } |
 | Click `SAVE`| |
 
 If you decide to remove this optional refinement, simply delete the arima_training_data.view from the use case folder.
