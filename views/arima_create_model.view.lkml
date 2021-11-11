@@ -6,7 +6,7 @@ view: arima_create_model {
 
     create_process: {
 
-      sql_step: CREATE OR REPLACE VIEW @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data_{{ _explore._name }}
+      sql_step: CREATE OR REPLACE TABLE @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data_{{ _explore._name }}
                     AS  SELECT {% parameter arima_training_data.select_time_column %}
                           , {% parameter arima_training_data.select_data_column %}
                         FROM ${input_data.SQL_TABLE_NAME}
