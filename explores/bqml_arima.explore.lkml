@@ -36,15 +36,10 @@ explore: bqml_arima {
     relationship: many_to_many
   }
 
-  join: arima_forecast {
+  ## type and relationship will be updated in the use case explore to define relationship between the input_data timestamp and the explore forecast timestamp
+  join: arima_explain_forecast {
     type: cross
     relationship: many_to_many
-  }
-
-  join: arima_explain_forecast {
-    type: full_outer
-    sql_on: ${arima_forecast.forecast_raw} = ${arima_explain_forecast.time_series_raw} ;;
-    relationship: one_to_one
   }
 
   join: arima_coefficients {

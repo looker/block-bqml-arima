@@ -27,7 +27,8 @@ view: arima_create_model {
                     , HOLIDAY_REGION = '{% parameter arima_hyper_params.set_holiday_region %}'
                     {% endif %}
 
-                    , AUTO_ARIMA = TRUE)
+                    , AUTO_ARIMA = TRUE
+                    , DECOMPOSE_TIME_SERIES = TRUE)
                   AS (SELECT * FROM @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data_{{ _explore._name }})
       ;;
 

@@ -38,15 +38,9 @@ explore: google_analytics_forecast {
     relationship: many_to_many
   }
 
-  join: arima_forecast {
-    type: full_outer
-    relationship: one_to_one
-    sql_on: ${google_analytics_input_data.date} = ${arima_forecast.forecast_date} ;;
-  }
-
   join: arima_explain_forecast {
     type: full_outer
-    sql_on: ${arima_forecast.forecast_raw} = ${arima_explain_forecast.time_series_raw} ;;
+    sql_on: ${google_analytics_input_data.date} = ${arima_explain_forecast.time_series_date} ;;
     relationship: one_to_one
   }
 
