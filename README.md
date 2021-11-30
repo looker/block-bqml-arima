@@ -110,8 +110,8 @@ Add a new model file for the use case, update the connection, and add include st
 | In the Create File pop-up, enter a `Name` for the use case folder  | monthly_sales_arima |
 | Click `CREATE` |
 | Within newly created model file, set `connection:` parameter to value used during installation of this Block | connection: thelook_bq |
-| Add an include statement for all view files found in same directory (note, you may receive a warning files cannot be found but you can ignore as files will be added in following steps)| include: '*.view' |
-| Add an include statement for all Explore files found in same directory (note, you may receive a warning files cannot be found but you can ignore as files will be added in following steps) | include: '*.explore' |
+| Add an include statement for all view files found in same directory (note, you may receive a warning files cannot be found but you can ignore as files will be added in following steps)| include: "*.view" |
+| Add an include statement for all Explore files found in same directory (note, you may receive a warning files cannot be found but you can ignore as files will be added in following steps) | include: "*.explore" |
 | Add an include statement for the Block's `bqml-arima.explore` so the file is available to this use case model and can be extended into the new Explore created in the next step.| include: "//bqml-arima/**/bqml_arima.explore" |
 | Click `SAVE` | |
 
@@ -189,7 +189,7 @@ While the parameter suggestions work as is and do not require any modification, 
 | Click `CREATE` |
 | On line 1 of the file insert include statement for the Block view to be refined | include: "//bqml-arima/**/arima_training_data.view" |
 | Replace `view: arima_training_data` with `view: +arima_training_data` <br> <br>The plus sign (+) indicates we are modifying/refining the original arima_training_data view defined for the Block | view: +arima_training_data |
-| If you want to specify the list of time series fields:<br>a. delete the auto-generated comments added when view file was created<br>b.update parameter: select_time_field with allowed_values for each time series field<br> <br><font color='red'><i class='fa fa-exclamation-triangle'></i> note: Using an allowed list could led to errors if user selects value not included in the Input Data view</font>| parameter: select_time_column {<br>    <font color='orange'><b>allowed_value: {label: "Date" value: "create_date"}<br>    allowed_value: {label: "Month" value: "create_month"}</b></font><br>} |
+| If you want to specify the list of time series fields:<br>a. delete the auto-generated comments added when view file was created<br>b.update parameter: select_time_field with allowed_values for each time series field<br> <br><font color='red'><i class='fa fa-exclamation-triangle'></i> note: Using an allowed list could lead to errors if user selects value not included in the Input Data view</font>| parameter: select_time_column {<br>    <font color='orange'><b>allowed_value: {label: "Date" value: "create_date"}<br>    allowed_value: {label: "Month" value: "create_month"}</b></font><br>} |
 | If you want to set the default and hide the parameter:<br>a. delete the auto-generated comments added when view file was created<br>b.update parameter: select_time_field with default value equal to primary key of the `input_data` view and set hidden to yes<br> <br><font color='red'><i class='fa fa-exclamation-triangle'></i> note: Using a default means the `input_data` view defined for the use case Explore must contain a field matching the default value otherwise an error may occur.</font> | parameter: select_time_column {<br>    <font color = 'orange'><b>default_value: "create_month"<br>    hidden: yes<br></b></font> } |
 | Click `SAVE`| |
 
