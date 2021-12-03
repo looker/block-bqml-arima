@@ -44,6 +44,12 @@ explore: google_analytics_forecast {
     relationship: one_to_one
   }
 
+  join: arima_detect_anomalies {
+    type: left_outer
+    sql_on: ${arima_explain_forecast.time_series_raw} = ${arima_detect_anomalies.time_series_timestamp} ;;
+    relationship: one_to_one
+  }
+
   join: arima_coefficients {
     type: cross
     relationship: many_to_many

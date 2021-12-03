@@ -223,4 +223,11 @@ view: arima_explain_forecast {
     sql: ${step_changes} ;;
     value_format_name: decimal_4
   }
+
+  measure: forecast_period_highlight {
+    type: max
+    description: "Highlights forecast period dates when added to a time series chart (set Series to Area Chat and add measure to Right Axis)"
+    filters: [time_series_type: "forecast"]
+    sql: 1 ;;
+  }
 }

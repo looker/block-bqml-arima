@@ -28,7 +28,7 @@ view: arima_create_model {
                     {% endif %}
 
                     , AUTO_ARIMA = TRUE
-                    , DECOMPOSE_TIME_SERIES = TRUE)
+                    )
                   AS (SELECT * FROM @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_training_data_{{ _explore._name }})
       ;;
 
@@ -62,6 +62,17 @@ view: arima_create_model {
                   INSERT (model_name, time_column, data_column, horizon, holiday_region, created_at, explore)
                   VALUES(model_name, time_column, data_column, horizon, holiday_region, created_at, explore)
       ;;
+
+      sql_step: CREATE OR REPLACE VIEW  @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_detect_anomalies_{{ _explore._name }}
+                AS SELECT {% parameter arima_training_data.select_time_column %} as time_series_timestamp
+                  , {% parameter arima_training_data.select_data_column %} as time_series_data
+                  ,is_anomaly
+                  ,anomaly_probability
+                  ,lower_bound
+                  ,upper_bound
+                FROM
+                  ML.DETECT_ANOMALIES(MODEL  @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }},STRUCT({% parameter arima_training_data.set_anomaly_prob_threshold %} AS anomaly_prob_threshold))
+     ;;
     }
   }
 
