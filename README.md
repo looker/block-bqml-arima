@@ -5,7 +5,7 @@
 
 Forecasting future points in a time series often provides tremendous value to a business. Imagine what accurate predictions of monthly sales, quarterly expenses, hourly inbound calls, daily product demand could do for your business--the applications are endless.
 
-An **ARIMA** (autoregressive integrated moving average) model is a popular tool among data scientists for estimating future demand. This type of model uses past values in a time series to predict (forecast) future points while automatically detecting and correcting for anomalies, seasonality, and holiday effects. With this Block, Looker developers can add this advanced analytical capability into new or existing Explores with a simple step-by-step workflow. Business users can use Looker to train many time-series models, evaluate them, and access their forecasts in dashboards or custom analyses.
+An **ARIMA** (autoregressive integrated moving average) model is a popular tool among data scientists for estimating future demand. This type of model uses past values in a time series to predict (forecast) future points while automatically detecting and correcting for anomalies, seasonality, and holiday effects. With this Block, Looker developers can add this advanced analytical capability into new or existing Explores with a simple step-by-step workflow. Business users can use Looker to create a time-series model, evaluate the model, and access forecasts in dashboards or custom analyses.
 
 
 This Block integrates the **BigQuery ML ARIMA PLUS model** including the following functionality:
@@ -21,7 +21,7 @@ This Block integrates the **BigQuery ML ARIMA PLUS model** including the followi
 With Looker + BQML, the forecasts and analysis are directly in the hands of business analysts.
 
 ---
-> <b><font size = "3" color="#174EA6"> <i class='fa fa-info-circle'></i>  Reach out to your Looker account team if you would like to partner with Looker Professional Services to implement this Looker + BQML block</font></b>
+> <b><font size = "3" color="#174EA6"> <i class='fa fa-info-circle'></i>  Reach out to your Looker account team if you would like to partner with Looker Professional Services to implement this Looker + BQML block or customize to support multiple time series models in a single query or to support your unique use case.</font></b>
 
 ---
 
@@ -76,8 +76,8 @@ The installed Block provides a workflow template as part of an Explore to guide 
 > <b>[1] BQML: Input Data<br>
 > [2] BQML: Name Your Model<br>
 > [3] BQML: Select Training Data<br>
-> [8] BQML: Explain Forecast<br>
-> [9] BQML: ARIMA Coefficients</b>
+> [8] BQML: Forecast<br>
+> [9] BQML: Anomaly Detection</b>
 
 For each use case, a LookML developer will create an Explore incorporating the workflow template by changing the Input Data to match a specific use case. For example, your use case may be a forecast of monthly sales. You would add a new model and explore the `marketplace_bqml-arima project` extending the ARIMA explore with the workflow already defined and modifying the input data to capture monthly sales for the desired time series forecast.
 
@@ -85,7 +85,7 @@ At a high-level the steps for each use case are:
 ><b>1)  Create Folder for all Use Case files<br>
 >2)  Add New Model <br>
 >3)  Add New Explore which Extends the Block's ARIMA Explore <br>
->4)  Make Refinements of select Explores and Views from the Block <br></b>
+>4)  Make Refinements of select Explores and Views <br></b>
 
 Details and code examples for each step are provided next. Note, all steps take place in `marketplace_bqml-arima` project while in **development mode**.
 
@@ -121,7 +121,7 @@ As noted earlier, all the files related to this Block are found in the `imported
 | steps | example                |
 | -- | -- |
 | Open the Use Case Model file | monthly_sales_arima.model |
-| Add Explore LookML which <br> a. includes label, group_label and/or description relevant to your use case<br>b. extends the bqml-arima explore<br>c. updates the join parameter between `arima_explain_forecast` and `input_data` to reflect correct unit of time to join on.<br> <br>The BQML ARIMA PLUS model output generates a forecast for the unit of time modeled (named __time_series_timestamp__ and defined as time dimension_group). <br>The unit of time modeled could vary by use case (e.g., month, day, hour), so need to update the Explore to capture the correct unit of time defined in the use case's `input_data` file (note steps for generating this file are detailed in the next section). Also update the correct unit of time for the arima_explain_forecast (e.g., time_series_raw, time_series_date, time_series_month). <br>Note, you may receive a warning that the field you entered in the JOIN for input_data does note exist. This warning can be ignored for now as the input_data.view will be created in the next step.|explore: <font color='orange'><b>monthly_sales_arima</b></font> {<br>  label: <font color='orange'>"BQML ARIMA Plus: Monthly Sales ARIMA"</font><br>  description: <font color='orange'>"Use this Explore to create BQML ARIMA Plus models to forecast monthly sales"</font><br><br>  extends: [bqml_arima] <br><br>   join: arima_explain_forecast {<br>    type:full_outer<br>    relationship: one_to_one<br>    sql_on: <font color = 'orange'><b>${input_data.create_date}</b></font> = ${arima_explain_forecast.time_series_date} ;;<br>  }<br>} |
+| Add Explore LookML which <br> a. includes label, group_label and/or description relevant to your use case<br>b. extends the bqml-arima explore<br>c. updates the join parameters of `arima_explain_forecast` and `arima_detect_anomalies` to reflect correct date/time field to properly join to `input_data` <br> <br>The BQML ARIMA PLUS model output generates a forecast for the unit of time modeled (named __time_series_timestamp__ and defined as time dimension_group). <br><br>In the next section, you will define the `input_data` view and the date/time field for the time series to be modeled (e.g., create_date, create_month). Because the ARIMA output produces a timestamp field with the generic name like `time_series_raw`, you should update the Explore to incorporate the correct join relationships between the `input_data` time series field and the time series field in ARIMA Forecasts and Anomaly Detection. Be sure to reference a timestamp field or if time series is defined as dimension groups of type: time use the `raw` reference (e.g., ${create_date_raw}).  <br><br>Note, you may receive a warning that the field you entered in the JOIN for input_data does not exist. This warning can be ignored for now as the input_data.view will be created in the next step.|explore: <font color='orange'><b>monthly_sales_arima</b></font> {<br>  label: <font color='orange'>"BQML ARIMA Plus: Monthly Sales ARIMA"</font><br>  description: <font color='orange'>"Use this Explore to create BQML ARIMA Plus models to forecast monthly sales"</font><br><br>  extends: [bqml_arima] <br><br>   join: arima_explain_forecast {<br>    type:full_outer<br>    relationship: one_to_one<br>    sql_on: <font color = 'orange'><b>${input_data.create_date_raw}</b></font> = ${arima_explain_forecast.time_series_raw} ;;<br>  }<br>} <br><br> join: arima_detect_anomalies {<br>    type:left_outer<br>    relationship: one_to_one<br>    sql_on: <font color = 'orange'><b>${input_data.create_date_raw}</b></font> = ${arima_detect_anomalies.time_series_raw} ;; |
 | Click `SAVE`| |
 
 
@@ -150,7 +150,7 @@ An ARIMA PLUS model uses past values in a time series to predict (forecast) futu
 | Paste the contents from SQL Runner into the file | |
 | On line 1 of the file insert include statement for the Block view to be refined | include: "//bqml-arima/**/input_data.view" |
 | Replace `view: sql_runner_query` with `view: +input_data` <br> <br>The plus sign (+) indicates we are modifying/refining the original input_data view defined for the Block | view: +input_data |
-| Review the remaining LookML and edit as necessary with:<br>a. names, labels, group labels, descriptions<br>b. identify the primary key field<br>c. Modify date formats as necessary. For example, dates are automatically defined as a `dimension_group with type of time` so modify as necessary for timeframes or convert to a single date dimension.<d> Add any additional measures if needed (only count created by default) | dimension: create_month {<br>  type: date<br>  primary_key: yes<br>  sql: <br>${TABLE}.create_month ;;<br>} |
+| Review the remaining LookML and edit as necessary with:<br>a. names, labels, group labels, descriptions<br>b. identify the primary key field<br>c. Modify date formats as necessary. For example, dates are automatically defined as a `dimension_group with type of time` so modify as necessary for timeframes or convert to a single date dimension.<d> Add any additional measures if needed (only the count measure is created by default) | dimension: create_month {<br>  type: date<br>  primary_key: yes<br>  sql: <br>${TABLE}.create_month ;;<br>} |
 | Click `SAVE` | |
 
 ---
@@ -178,7 +178,7 @@ The name suggestions come from the `model_name_suggestions.explore` and in this 
 #### <font size=5>4c. arima_training_data.view </font><font color='red'> (OPTIONAL)
 As part of the create ARIMA model workflow, the user is required to include the `Select a Time Field` parameter and pick the field that uniquely identifies each point of the time series to be forecast. By default the list of suggested fields comes from all the columns defined in the `input_data.view` and cannot be filtered to include only dates and times (as data types cannot be determined). If the list of columns in the input_data view is large, the user may have difficulty finding the time series field.
 
-While the parameter suggestions work as is and do not require any modification, you may elect to enhance the user experience with a standard list of choices for the time series field (e.g., list only date, month, hour). Or you could specify a default field which matches the `input_data` primary key and hide the parameter, thereby eliminating this step from the user's workflow. If you would like to modify the `Select a Time Field` parameter, follow these steps.
+While the parameter suggestions work as is and do not require any modification, you may elect to improve the user experience with a standard list of choices for the time series field (e.g., list only date, month, hour). Or you could specify a default field which matches the `input_data` primary key and hide the parameter, thereby eliminating this step from the user's workflow. If you would like to modify the `Select a Time Field` parameter, follow these steps.
 
 | steps | example |
 | -- | -- |
