@@ -1,3 +1,4 @@
+## returns evaluation metrics for the chosen model that best fits the time series data (show_all_candidate_models = FALSE)
 view: arima_evaluate {
   label: "[6] BQML: Evaluation Metrics"
 
@@ -8,18 +9,21 @@ view: arima_evaluate {
 
   dimension: non_seasonal_p {
     label: "Non Seasonal p"
+    description: "Number of lag observations or autoregressive terms in the model"
     type: number
     sql: ${TABLE}.non_seasonal_p ;;
   }
 
   dimension: non_seasonal_d {
     label: "Non Seasonal d"
+    description: "Difference in the nonseasonal observations"
     type: number
     sql: ${TABLE}.non_seasonal_d ;;
   }
 
   dimension: non_seasonal_q {
     label: "Non Seasonal q"
+    description: "Size of the moving average window"
     type: number
     sql: ${TABLE}.non_seasonal_q ;;
   }
@@ -37,6 +41,7 @@ view: arima_evaluate {
   dimension: aic {
     label: "AIC"
     type: number
+    description: "Compares the quality of a set of models. BigQuery ML generates dozens of candidate models and chooses the best one with lowest AIC value "
     sql: ${TABLE}.AIC ;;
     value_format_name: decimal_4
   }
@@ -69,6 +74,7 @@ view: arima_evaluate {
 
   dimension: error_message {
     type: string
+    description: "Will indicate if a possible error incurred during the ARIMA fitting process"
     sql: ${TABLE}.error_message ;;
   }
 

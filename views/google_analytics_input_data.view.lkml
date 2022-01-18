@@ -18,10 +18,18 @@ view: google_analytics_input_data {
   }
 
   dimension: date {
-    primary_key: yes
-    convert_tz: no
     type: date
+    primary_key: yes
     sql: ${TABLE}.date ;;
+    convert_tz: no
+  }
+
+  dimension_group: create {
+    type: time
+    hidden: yes
+    timeframes: [date,raw,time]
+    sql: ${TABLE}.date ;;
+    convert_tz: no
   }
 
   dimension: visits {

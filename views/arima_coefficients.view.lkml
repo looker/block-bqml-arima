@@ -5,14 +5,19 @@ view: arima_coefficients {
 
   dimension: ar_coefficients {
     hidden: yes
+    description: "The autoregressive coefficients, which correspond to non-seasonal p"
+    sql: ${TABLE}.ar_coefficients;;
   }
 
   dimension: ma_coefficients {
     hidden: yes
+    description: "The moving-average coefficients, which correspond to non-seasonal q"
+    sql: ${TABLE}.ma_coefficients ;;
   }
 
   dimension: intercept_or_drift {
     type: number
+    description: "Constant term in the ARIMA model"
     sql: ${TABLE}.intercept_or_drift ;;
   }
 
@@ -26,6 +31,7 @@ view: ar_coefficients {
 
   dimension: ar_coefficients {
     label: "AR Coefficients"
+    description: "The autoregressive coefficients, which correspond to non-seasonal p"
     type: number
     sql: ${TABLE} ;;
   }
@@ -36,6 +42,7 @@ view: ma_coefficients {
 
   dimension: ma_coefficients {
     label: "MA Coefficients"
+    description: "The moving-average coefficients, which correspond to non-seasonal q"
     type: number
     sql: ${TABLE} ;;
   }

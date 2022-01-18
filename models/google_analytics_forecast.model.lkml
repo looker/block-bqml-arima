@@ -40,13 +40,13 @@ explore: google_analytics_forecast {
 
   join: arima_explain_forecast {
     type: full_outer
-    sql_on: ${google_analytics_input_data.date} = ${arima_explain_forecast.time_series_date} ;;
+    sql_on: ${google_analytics_input_data.create_raw} = ${arima_explain_forecast.time_series_raw} ;;
     relationship: one_to_one
   }
 
   join: arima_detect_anomalies {
     type: left_outer
-    sql_on: ${arima_explain_forecast.time_series_raw} = ${arima_detect_anomalies.time_series_timestamp} ;;
+    sql_on: ${google_analytics_input_data.create_raw} = ${arima_detect_anomalies.time_series_raw} ;;
     relationship: one_to_one
   }
 

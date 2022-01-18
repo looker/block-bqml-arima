@@ -42,6 +42,7 @@ explore: bqml_arima {
     relationship: many_to_many
   }
 
+ ## type and relationship will be updated in the use case explore to define relationship between the input_data timestamp and the explore forecast timestamp
   join: arima_detect_anomalies {
     type: left_outer
     sql_on: ${arima_explain_forecast.time_series_raw} = ${arima_detect_anomalies.time_series_raw} ;;
