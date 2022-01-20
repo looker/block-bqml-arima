@@ -157,7 +157,7 @@ An ARIMA PLUS model uses past values in a time series to predict (forecast) futu
 
 
 #### <font size=5>3b. model_name_suggestions.explore </font><font color='red'> (REQUIRED)
-To create an ARIMA model, the user must enter a name for the model and can type in any string value. The ARIMA Explore also allows the user to evaluate a model which has already been created. The `Model Name` parameter allows users to select the name from a list of existing models created by the given Explore. These suggested values come from the `BQML_ARIMA_MODEL_INFO` table stored in the Model Details dataset defined for the Block during installation. Because this table captures details for all models created with the Block across all Explores, we need to filter the suggestions by Explore name–the Explore created in `Implementation Step 3`. If you do not filter for the use case Explore, an error would occur if the user tries to evaluate a model based on different time series data.
+To create an ARIMA model, the user must enter a name for the model and can type in any string value. The ARIMA Explore also allows the user to evaluate a model which has already been created. The `Model Name` parameter allows users to select the name from a list of existing models created by the given Explore. These suggested values come from the `BQML_ARIMA_MODEL_INFO` table stored in the Model Details dataset defined for the Block during installation. Because this table captures details for all models created with the Block across all Explores, we need to filter the suggestions by Explore name–the Explore which will be created next in `Implementation Step 4`. If you do not filter for the use case Explore, an error would occur if the user tries to evaluate a model based on different time series data.
 
 The name suggestions come from the `model_name_suggestions.explore` and in this step we will refine the `sql_always_where` filter applied to the include the use case Explore name.
 
@@ -201,6 +201,7 @@ As noted earlier, all the files related to this Block are found in the `imported
 | Add Explore LookML which <br> a. includes label, group_label and/or description relevant to your use case<br>b. extends the bqml-arima explore<br>c. updates the join parameters of `arima_explain_forecast` and `arima_detect_anomalies` to reflect correct date/time field to properly join to `input_data` <br> <br>The BQML ARIMA PLUS model output generates a forecast for the unit of time modeled (named __time_series_timestamp__ and defined as time dimension_group). <br><br>In the previous section, you defined the `input_data` view and the date/time field for the time series to be modeled (e.g., create_date, create_month). Because the ARIMA output produces a timestamp field with the generic name of `time_series_raw`, you will need to update the Explore to incorporate the correct join relationships between the `input_data` time series field and the time series field in ARIMA Forecasts and Anomaly Detection. Be sure to reference a timestamp field or if the time series is defined as a dimension group of `type: time` use the `raw` reference (e.g., ${create_date_raw}).  |explore: <font color='orange'><b>monthly_sales_arima</b></font> {<br>  label: <font color='orange'>"BQML ARIMA Plus: Monthly Sales ARIMA"</font><br>  description: <font color='orange'>"Use this Explore to create BQML ARIMA Plus models to forecast monthly sales"</font><br><br>  extends: [bqml_arima] <br><br>   join: arima_explain_forecast {<br>    type:full_outer<br>    relationship: one_to_one<br>    sql_on: <font color = 'orange'><b>${input_data.create_date_raw}</b></font> = ${arima_explain_forecast.time_series_raw} ;;<br>  } <br><br> join: arima_detect_anomalies {<br>    type:left_outer<br>    relationship: one_to_one<br>    sql_on: <font color = 'orange'><b>${input_data.create_date_raw}</b></font> = ${arima_detect_anomalies.time_series_raw} ;; <br>}|
 | Click `SAVE`| |
 
+
 ## ARIMA Plus CREATE MODEL Syntax
 
 With this block, the user will be able to control these options for the ARIMA Plus Model:
@@ -216,6 +217,7 @@ With this block, the user will be able to control these options for the ARIMA Pl
 The `time_series_id_col` which allows you to forecast multiple time series in a single query is not included. All other options use the default values. For information about all the possible options for the ARIMA Plus Model, see the [Create Model Syntax documentation](https://cloud.google.com/bigquery-ml/docs/reference/standard-sql/bigqueryml-syntax-create-time-series#create_model_syntax).
 
 Note, this block could be customized to include additional options and parameters.
+
 
 ## Enabling Business Users
 
