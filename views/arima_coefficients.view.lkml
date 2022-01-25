@@ -1,5 +1,5 @@
 view: arima_coefficients {
-  label: "[7] BQML: ARIMA Coefficients"
+  label: "[6] BQML: Evaluation Metrics & Coefficients"
 
   sql_table_name: ML.ARIMA_COEFFICIENTS(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }}) ;;
 
@@ -10,7 +10,8 @@ view: arima_coefficients {
   # }
 
   dimension: ar_coefficients {
-     label: "AR Coefficients"
+    group_label: "Model Coefficients"
+    label: "AR Coefficients"
     description: "The autoregressive coefficients, which correspond to non-seasonal p"
     sql: (select string_agg(cast(ar as string),', ') from unnest(${TABLE}.ar_coefficients) as ar);;
   }
@@ -22,12 +23,14 @@ view: arima_coefficients {
   # }
 
   dimension: ma_coefficients {
+    group_label: "Model Coefficients"
     label: "MA Coefficients"
     description: "The moving-average coefficients, which correspond to non-seasonal q"
     sql: (select string_agg(cast(ma as string),', ') from unnest(${TABLE}.ma_coefficients) as ma) ;;
   }
 
   dimension: intercept_or_drift {
+    group_label: "Model Coefficients"
     type: number
     description: "Constant term in the ARIMA model"
     sql: ${TABLE}.intercept_or_drift ;;

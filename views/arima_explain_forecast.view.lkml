@@ -1,5 +1,5 @@
 view: arima_explain_forecast {
-  label: "[8] BQML: Forecast"
+  label: "[7] BQML: Forecast"
 
   sql_table_name: ML.EXPLAIN_FORECAST(MODEL @{looker_temp_dataset_name}.{% parameter model_name.select_model_name %}_arima_model_{{ _explore._name }},
                     STRUCT({% parameter set_horizon %} AS horizon, {% parameter set_confidence_level %} AS confidence_level)) ;;
