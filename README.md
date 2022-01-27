@@ -221,7 +221,7 @@ Note, this block could be customized to include additional options and parameter
 
 ## Enabling Business Users
 
-This block comes with the following example Explore for enabling business users.
+This block comes with a [Quick Start Guide for Business Users](https://github.com/looker/block-bqml-arima/blob/master/QUICK_START_GUIDE.md) and the following example Explore for enabling business users.
 - BQML ARIMA Plus: Google Analytics Forecast
 
 
