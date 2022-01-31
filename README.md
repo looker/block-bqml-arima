@@ -72,12 +72,15 @@ At this point you can begin creating your own Explores incorporating the ARIMA m
 
 ## Building an Explore with the ARIMA Block
 
-The installed Block provides a workflow template as part of an Explore to guide a business user through the steps necessary to create and evaluate an ARIMA model. As seen in the provided Explore `BQML ARIMA Plus: Google Analytics Forecast`, a user navigates through a series of steps to create and evaluate daily predictions of Google Analytics metrics like visits, transactions, etc. A few examples of the workflow steps are:
+The installed Block provides a workflow template as part of an Explore to guide a business user through the steps necessary to create and evaluate an ARIMA model. As seen in the provided Explore `BQML ARIMA Plus: Google Analytics Forecast`, a user navigates through a series of steps to create and evaluate daily predictions of Google Analytics metrics like visits, transactions, etc. The workflow steps are:
 > <b>[1] BQML: Input Data<br>
 > [2] BQML: Name Your Model<br>
 > [3] BQML: Select Training Data<br>
-> [8] BQML: Forecast<br>
-> [9] BQML: Detect Anomalies</b>
+> [4] BQML: Set Model Parameters<br>
+> [5] BQML: Create Model<br>
+> [6] BQML: Evaluation Metrics & Coefficients<br>
+> [7] BQML: Forecast<br>
+> [8] BQML: Detect Anomalies</b>
 
 For each use case, a LookML developer will create an Explore incorporating the workflow template by changing the Input Data to match a specific use case. For example, your use case may be a forecast of monthly sales. You would add a new model and explore the `marketplace_bqml-arima project` extending the ARIMA explore with the workflow already defined and modifying the input data to capture monthly sales for the desired time series forecast.
 
